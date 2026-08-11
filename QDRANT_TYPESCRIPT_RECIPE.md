@@ -12,42 +12,70 @@ The following recipe type-checked with `tsc --noEmit` against `@qdrant/js-client
 import { randomUUID } from "node:crypto";
 import { QdrantClient } from "@qdrant/js-client-rest";
 
+const COLLECTION = "documents";
 const client = new QdrantClient({
   url: process.env.QDRANT_URL!,
   apiKey: process.env.QDRANT_API_KEY!,
 });
 
-await client.createCollection("documents", {
-  vectors: { size: 1536, distance: "Cosine" },
-});
+// Run during deployment or application setup, not per request.
+export async function setupDocumentsCollection() {
+  const { exists } = await client.collectionExists(COLLECTION);
 
-await client.createPayloadIndex("documents", {
-  field_name: "tenant_id",
-  field_schema: "keyword",
-  wait: true,
-});
+  if (!exists) {
+    await client.createCollection(COLLECTION, {
+      vectors: { size: 1536, distance: "Cosine" },
+    });
+  }
 
-await client.upsert("documents", {
-  wait: true,
-  points: [{
-    id: randomUUID(),
-    vector: embedding,
-    payload: { tenant_id: tenantId, text, source_url: sourceUrl },
-  }],
-});
+  const collection = await client.getCollection(COLLECTION);
+  if (!collection.payload_schema.tenant_id) {
+    await client.createPayloadIndex(COLLECTION, {
+      field_name: "tenant_id",
+      field_schema: "keyword",
+      wait: true,
+    });
+  }
+}
 
-const result = await client.query("documents", {
-  query: queryEmbedding,
-  filter: {
-    must: [{ key: "tenant_id", match: { value: tenantId } }],
-  },
-  with_payload: true,
-  limit: 8,
-});
+export async function indexDocument(input: {
+  embedding: number[];
+  tenantId: string;
+  text: string;
+  sourceUrl: string;
+}) {
+  await client.upsert(COLLECTION, {
+    wait: true,
+    points: [{
+      id: randomUUID(),
+      vector: input.embedding,
+      payload: {
+        tenant_id: input.tenantId,
+        text: input.text,
+        source_url: input.sourceUrl,
+      },
+    }],
+  });
+
+}
+
+export function queryDocuments(input: {
+  queryEmbedding: number[];
+  tenantId: string;
+}) {
+  return client.query(COLLECTION, {
+    query: input.queryEmbedding,
+    filter: {
+      must: [{ key: "tenant_id", match: { value: input.tenantId } }],
+    },
+    with_payload: true,
+    limit: 8,
+  });
+}
 ```
 
-Create the collection and payload index during application setup rather than on every request. The collection's vector
-size must match the embedding model.
+Run `setupDocumentsCollection()` during deployment or application setup rather than on every request. The collection's
+vector size must match the embedding model.
 
 ## Primary sources
 
