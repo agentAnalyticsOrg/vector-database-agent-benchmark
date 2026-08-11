@@ -3,7 +3,7 @@
 This repository preserves task-level Claude Code selection and current TypeScript SDK compatibility evidence for
 Qdrant, Pinecone, and Weaviate. It does not declare a universal vector-database winner.
 
-**Study date:** August 11, 2026  
+**Panel date:** August 10, 2026 (Pacific time)  
 **Canonical report:** https://agentanalytics.org/research/vector-database-typescript-task-evidence  
 **Machine-readable evidence:** [evidence.json](./evidence.json)
 
