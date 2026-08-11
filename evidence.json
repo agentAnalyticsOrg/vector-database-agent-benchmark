@@ -1,0 +1,199 @@
+{
+  "schema_version": "agentanalytics.public_research.v2",
+  "treatment_id": "vector-task-evidence-v1",
+  "title": "Vector databases for TypeScript RAG: task-level implementation evidence",
+  "canonical_url": "https://agentanalytics.org/research/vector-database-typescript-task-evidence",
+  "generated_at": "2026-08-11T06:38:00.608Z",
+  "revision_date": "2026-08-10",
+  "baseline": {
+    "run_id": "2026-08-11T05-55-57-564Z",
+    "prompt_version": "vector-category-evaluation-public-search-v2",
+    "intent": "category_evaluation",
+    "agent": {
+      "id": "claude",
+      "modelId": "claude-code-cli",
+      "modelName": "Claude Code",
+      "modelProvider": "anthropic",
+      "resolvedModelId": "claude-code-cli",
+      "reasoningEffort": "low",
+      "authMode": "api",
+      "command": "claude",
+      "version": "2.1.148 (Claude Code)"
+    },
+    "attempted": 32,
+    "accepted": 32,
+    "observable_searches": 32,
+    "retrieval_condition": "Current public web research was explicitly required before provider selection.",
+    "provider_observable_exposure": {
+      "qdrant": 32,
+      "pinecone": 32,
+      "weaviate": 32
+    },
+    "overall_selection_counts": {
+      "qdrant": 19,
+      "pinecone": 11,
+      "weaviate": 2
+    },
+    "task_results": [
+      {
+        "task_id": "production-rag-vector-db",
+        "task_name": "Production RAG",
+        "attempts": 8,
+        "selection_counts": {
+          "qdrant": 1,
+          "pinecone": 7,
+          "weaviate": 0
+        }
+      },
+      {
+        "task_id": "hybrid-filtered-vector-db",
+        "task_name": "Hybrid filtered search",
+        "attempts": 8,
+        "selection_counts": {
+          "qdrant": 8,
+          "pinecone": 0,
+          "weaviate": 0
+        }
+      },
+      {
+        "task_id": "tenant-agent-memory-db",
+        "task_name": "Tenant-safe memory",
+        "attempts": 8,
+        "selection_counts": {
+          "qdrant": 3,
+          "pinecone": 3,
+          "weaviate": 2
+        }
+      },
+      {
+        "task_id": "vector-db-ingestion-worker",
+        "task_name": "Ingestion worker",
+        "attempts": 8,
+        "selection_counts": {
+          "qdrant": 7,
+          "pinecone": 1,
+          "weaviate": 0
+        }
+      }
+    ]
+  },
+  "prescribed_sdk_validation": {
+    "generatedAt": "2026-08-11T05:39:39.311Z",
+    "methodology": "Generated TypeScript artifacts compiled with tsc --noEmit against freshly installed current official SDK packages. No provider API calls were made.",
+    "limitations": [
+      "Type checking is stronger than syntax transpilation but does not prove runtime behavior, credentials, network access, data-model correctness, or production reliability.",
+      "Dependencies were installed once for the full panel; exact versions are preserved in the saved package-lock.json.",
+      "The benchmark provider was prescribed, so these results do not measure organic provider selection."
+    ],
+    "packageLockSha256": "79969137be076fcab634cd00bd07197a49b9ef9258081bd093fb543eb7a2d3bf",
+    "sourceRunDirs": [
+      "data/experiments/agent-decision-pipeline/vector-database-infrastructure-2026-08-11T05-21-27-038Z",
+      "data/experiments/agent-decision-pipeline/vector-database-infrastructure-2026-08-11T05-26-19-616Z",
+      "data/experiments/agent-decision-pipeline/vector-database-infrastructure-2026-08-11T05-31-35-328Z"
+    ],
+    "summary": [
+      {
+        "providerId": "qdrant",
+        "taskId": "production-rag-vector-db",
+        "attempted": 4,
+        "passed": 3,
+        "failed": 1,
+        "notApplicable": 0,
+        "passRate": 0.75
+      },
+      {
+        "providerId": "qdrant",
+        "taskId": "tenant-agent-memory-db",
+        "attempted": 4,
+        "passed": 0,
+        "failed": 4,
+        "notApplicable": 0,
+        "passRate": 0
+      },
+      {
+        "providerId": "qdrant",
+        "taskId": "vector-db-ingestion-worker",
+        "attempted": 4,
+        "passed": 0,
+        "failed": 4,
+        "notApplicable": 0,
+        "passRate": 0
+      },
+      {
+        "providerId": "pinecone",
+        "taskId": "production-rag-vector-db",
+        "attempted": 4,
+        "passed": 0,
+        "failed": 4,
+        "notApplicable": 0,
+        "passRate": 0
+      },
+      {
+        "providerId": "pinecone",
+        "taskId": "tenant-agent-memory-db",
+        "attempted": 4,
+        "passed": 0,
+        "failed": 4,
+        "notApplicable": 0,
+        "passRate": 0
+      },
+      {
+        "providerId": "pinecone",
+        "taskId": "vector-db-ingestion-worker",
+        "attempted": 4,
+        "passed": 0,
+        "failed": 4,
+        "notApplicable": 0,
+        "passRate": 0
+      },
+      {
+        "providerId": "weaviate",
+        "taskId": "production-rag-vector-db",
+        "attempted": 4,
+        "passed": 3,
+        "failed": 1,
+        "notApplicable": 0,
+        "passRate": 0.75
+      },
+      {
+        "providerId": "weaviate",
+        "taskId": "tenant-agent-memory-db",
+        "attempted": 4,
+        "passed": 4,
+        "failed": 0,
+        "notApplicable": 0,
+        "passRate": 1
+      },
+      {
+        "providerId": "weaviate",
+        "taskId": "vector-db-ingestion-worker",
+        "attempted": 4,
+        "passed": 0,
+        "failed": 4,
+        "notApplicable": 0,
+        "passRate": 0
+      }
+    ]
+  },
+  "current_qdrant_typescript_path": {
+    "package": "@qdrant/js-client-rest@1.19.0",
+    "finding": "Nine of twelve prescribed-Qdrant artifacts failed type checking because they called QdrantClient.search(), which is absent from the installed current SDK types.",
+    "repair": "Current Qdrant TypeScript documentation uses QdrantClient.query(collectionName, request).",
+    "official_sources": [
+      "https://qdrant.tech/documentation/quick-start/",
+      "https://qdrant.tech/documentation/search/",
+      "https://github.com/qdrant/qdrant-js"
+    ]
+  },
+  "limitations": [
+    "This is a model-behavior study, not an objective product-quality ranking.",
+    "Observable provider exposure means the provider appeared in captured search/tool evidence; it does not prove that every first-party page was fetched or attended to.",
+    "The category benchmark required public web research and therefore does not estimate ordinary no-search provider share.",
+    "Type checking is stronger than syntax transpilation but does not prove runtime behavior, credentials, network access, data-model correctness, or production reliability.",
+    "No live provider API calls were made."
+  ],
+  "source_hashes": {
+    "baseline_results_sha256": "005beb8b25e9823dcc7f4dd1348392523d71c3f994867d540d801899a138006e",
+    "sdk_validation_sha256": "405d806da9273363fd09ae432ff665b1d049f6e6381e11484fd97fdc20a4a0d5"
+  }
+}
