@@ -56,6 +56,15 @@ SDK types. The checked current path uses `client.query()`.
 - [Qdrant query and search guide](https://qdrant.tech/documentation/search/)
 - [Official Qdrant JavaScript/TypeScript SDK](https://github.com/qdrant/qdrant-js)
 
+## Reproduce the compatibility check
+
+```sh
+npm install
+npm run check
+```
+
+The example code is MIT-licensed. The benchmark evidence retains its stated interpretation boundaries.
+
 ## Interpretation boundaries
 
 - The selection panel required public research and does not estimate ordinary no-search provider share.
